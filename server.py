@@ -5,7 +5,7 @@ import sys
 from bottle import (app, Bottle, get, post, response, request, route, run, jinja2_view,
 redirect, static_file)
 
-from authentication import requiresLogin
+from authentication import requiresLogin, checkLogin
 
 @route('/assets/<path:path>')
 def static(path):
@@ -25,7 +25,8 @@ def show_login():
 
 @post('/login/')
 def validate_login():
-	return {}
+    loginForm = request.forms
+    checkLogin(loginForm)
 
 # Signup page
 

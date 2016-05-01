@@ -1,5 +1,12 @@
-SET FOREIGN_KEY_CHECKS = 0,
-DROP TABLE IF EXISTS Game,
-Event, Player, Event_staff, Hosts,
-Competes_in, Tournament_organizers, Helpers,
-Stream_operators, Controllers, Main_characters;
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE Game;
+DROP TABLE Event;
+DROP TABLE Player;
+DROP TABLE Event_staff;
+DROP TABLE Hosts;
+DROP TABLE Competes_in;
+DROP TABLE Tournament_organizers;
+DROP TABLE Helpers;
+DROP TABLE Stream_operators;
+DROP TABLE Controllers;
+DROP TABLE Main_characters;

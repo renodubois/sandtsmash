@@ -17,7 +17,7 @@ def requiresLogin(func):
     return wrapper
 
 
-def validateForm(form):
+def checkLogin(form):
     # Try and connect to the database
     try:
         conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
@@ -31,9 +31,15 @@ def validateForm(form):
         else:
             print(err)
     else:
+        # Define a cursor, used to interact with our database.
         cursor = conn.cursor()
+        # Grab the username and password that the user entered.
+        username = form['username']
+        password = form['password']
         # Encrypt the entered password
         password = hashlib.sha256(password.encode())
+        # Sanitize our input.
+
         # Check to see if the username and password match.
         query = "SELECT * FROM Player WHERE Username ='{}' and Password ='{}'".format(username, password.hexdigest())
         cursor.execute(query)

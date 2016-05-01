@@ -10,7 +10,7 @@ import mysql.connector
 def requiresLogin(func):
 	@functools.wraps(func)
 	def wrapper(*args, **kwargs):
-		if not request.get_cookie('logged_in_as'):
+	    if not request.get_cookie('logged_in_as'):
 			redirect('/login/')
 		else:
 			return func(*args, **kwargs)
@@ -31,25 +31,23 @@ def validateForm(form):
 		else:
 			print(err)
 	else:
-		conn.close()
-	userLength = len(form['username'])
-	passLength = len(form['password'])
-	if not form['username']:
-		# Error; username can't be blank
-		print('poo')
-	elif not form['password']:
-		# Error; password can't be blank
-		print('more poo')
-	# Sanitize input, then check database for match.
-	else:
-        cursor = conn.cursor()
-        # Encrypt the entered password
-        password = hashlib.sha256(password.encode())
-        # Check to see if the username and password match.
-        query = "SELECT * FROM users WHERE username ='{}' and password ='{}'".format(username, password.hexdigest())
-        cursor.execute(query)
-        for r in cursor:
-		    print(r)
-
-    cursor.close()
-    conn.close()
+	    userLength = len(form['username'])
+	    passLength = len(form['password'])
+	    if not form['username']:
+		    # Error; username can't be blank
+		    print('poo')
+	    elif not form['password']:
+		    # Error; password can't be blank
+		    print('more poo')
+	    # Sanitize input, then check database for match.
+	    else:
+            cursor = conn.cursor()
+            # Encrypt the entered password
+            password = hashlib.sha256(password.encode())
+            # Check to see if the username and password match.
+            query = "SELECT * FROM users WHERE username ='{}' and password ='{}'".format(username, password.hexdigest())
+            cursor.execute(query)
+            for r in cursor:
+		        print(r)
+            cursor.close()
+            conn.close()

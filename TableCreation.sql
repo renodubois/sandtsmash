@@ -21,6 +21,7 @@ CREATE TABLE Event (
 
 CREATE TABLE Player (
   Username VARCHAR(20),
+  Password VARCHAR(255),
   F_name VARCHAR(255),
   L_name VARCHAR(255),
   Location VARCHAR(255),

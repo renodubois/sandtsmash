@@ -2,6 +2,7 @@ from bottle import (request, redirect)
 from setup import MY_SQL_CONNECTION
 import functools
 import mysql.connector
+import hashlib
 
 '''	requiresLogin
 	Function wrapper to require a user to be logged in to access a certain page.

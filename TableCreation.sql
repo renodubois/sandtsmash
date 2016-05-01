@@ -30,7 +30,7 @@ CREATE TABLE Player (
 
 CREATE TABLE Event_staff (
   Staff_id INT(9),
-  Event_id INT(9)
+  Event_id INT(9),
   F_name VARCHAR(255),
   L_name VARCHAR(255),
   PRIMARY KEY(Staff_id),
@@ -57,14 +57,14 @@ CREATE TABLE Tournament_organizers (
   Staff_id INT(9) NOT NULL,
   Experience INT,
   PRIMARY KEY(Staff_id),
-  FOREIGN KEY(Staff_id) REFERENCES (Event_staff)
+  FOREIGN KEY(Staff_id) REFERENCES Event_staff(Staff_id)
 );
 
 CREATE TABLE Helpers (
   Staff_id INT(9) NOT NULL,
   Competency BOOLEAN NOT NULL,
   PRIMARY KEY(Staff_id),
-  FOREIGN KEY(Staff_id) REFERENCES (Event_staff)
+  FOREIGN KEY(Staff_id) REFERENCES Event_staff(Staff_id)
 );
 
 CREATE TABLE Stream_operators (

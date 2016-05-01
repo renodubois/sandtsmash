@@ -29,6 +29,14 @@ def validate_login():
 
 # Signup page
 
+@get('/signup/')
+@jinja2_view("templates/signup.html")
+def show_signup():
+    return {}
+
+@post('/signup/')
+def validate_signup():
+    return {}
 
 # Rankings page
 

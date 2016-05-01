@@ -43,13 +43,13 @@ def validateForm(form):
 	# Sanitize input, then check database for match.
 	else:
 		cursor = conn.cursor()
-    # Encrypt the entered password
-    password = hashlib.sha256(password.encode())
-    # Check to see if the username and password match.
-    query = "SELECT * FROM users WHERE username ='{}' and password ='{}'".format(username, password.hexdigest())
-    cursor.execute(query)
-    for r in cursor:
-		print(r)
+    	# Encrypt the entered password
+    	password = hashlib.sha256(password.encode())
+    	# Check to see if the username and password match.
+    	query = "SELECT * FROM users WHERE username ='{}' and password ='{}'".format(username, password.hexdigest())
+    	cursor.execute(query)
+    	for r in cursor:
+			print(r)
 
     cursor.close()
     conn.close()

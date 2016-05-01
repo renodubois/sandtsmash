@@ -11,25 +11,25 @@ def requiresLogin(func):
 	@functools.wraps(func)
 	def wrapper(*args, **kwargs):
 	    if not request.get_cookie('logged_in_as'):
-			redirect('/login/')
+		    redirect('/login/')
 		else:
-			return func(*args, **kwargs)
+		    return func(*args, **kwargs)
 	return wrapper
 
 
 def validateForm(form):
 	# Try and connect to the database
 	try:
-		conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
-		password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
-		database=MY_SQL_CONNECTION[3])
+	    conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
+	    password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
+	    database=MY_SQL_CONNECTION[3])
 	except mysql.connector.Error as err:
-		if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-			print('Something is wrong w/ username and password')
-		elif err.errno == errorcode.ER_BAD_DB_ERROR:
-			print('Test database doesn\'t exist')
-		else:
-			print(err)
+	    if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+		    print('Something is wrong w/ username and password')
+	    elif err.errno == errorcode.ER_BAD_DB_ERROR:
+		    print('Test database doesn\'t exist')
+        else:
+            print(err)
 	else:
 	    userLength = len(form['username'])
 	    passLength = len(form['password'])

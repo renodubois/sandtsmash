@@ -1,8 +1,8 @@
 #This file holds all of the CREATE TABLE statments to build the database
 
 CREATE TABLE Game (
-  Name  VARCHAR NOT NULL,
-  Console  VARCHAR NOT NULL,
+  Name  VARCHAR(255) NOT NULL,
+  Console  VARCHAR() NOT NULL,
   PRIMARY KEY(Name)
 );
 

@@ -6,6 +6,7 @@ from bottle import (app, Bottle, get, post, response, request, route, run, jinja
 redirect, static_file)
 
 from authentication import requiresLogin, checkLogin
+from alerts import load_alerts, save_danger, save_success
 
 @route('/assets/<path:path>')
 def static(path):
@@ -13,12 +14,14 @@ def static(path):
 
 # Main page.
 @get('/')
+@load_alerts
 @jinja2_view("templates/index.html")
 def index():
 	return {}
 
 # Login page
 @get('/login/')
+@load_alerts
 @jinja2_view("templates/login.html")
 def show_login():
 	return {}
@@ -26,11 +29,18 @@ def show_login():
 @post('/login/')
 def validate_login():
     loginForm = request.forms
-    checkLogin(loginForm)
+    errors = checkLogin(loginForm)
+    if errors:
+        for i in errors:
+            save_danger(i)
+        redirect('/login/')
+    # If user signed in successfully:
+
 
 # Signup page
 
 @get('/signup/')
+@load_alerts
 @jinja2_view("templates/signup.html")
 def show_signup():
     return {}
@@ -47,6 +57,7 @@ def validate_signup():
 
 # Forum page
 @get('/forum/')
+@load_alerts
 @requiresLogin
 def show_forum():
 	return {}

@@ -20,6 +20,7 @@ def requiresLogin(func):
 
 
 def checkLogin(form):
+    errors = []
     # Try and connect to the database
     try:
         conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
@@ -45,7 +46,12 @@ def checkLogin(form):
         # Check to see if the username and password match.
         query = "SELECT * FROM Player WHERE Username ='{}' and Password ='{}'".format(username, password)
         cursor.execute(query)
+        numRows = 0
         for r in cursor:
-            print(r)
+            numRows += 1
+        # If the result is anything but one result, it's invalid. Return with errors.
+        if numRows != 1:
+            errors.append('Invalid username or password!')
         cursor.close()
         conn.close()
+        return errors

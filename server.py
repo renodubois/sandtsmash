@@ -61,5 +61,12 @@ def validate_signup():
 @requiresLogin
 def show_forum():
 	return {}
+
+# Configurations for the Alerts module.
+session_options = {
+    'session.type': 'cookie',
+    'session.validate_key': 'super-secret'
+}
+
 # Run the server:
 run(host='131.151.155.118', port=80)

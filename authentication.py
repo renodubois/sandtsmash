@@ -12,7 +12,7 @@ import hashlib
 def requiresLogin(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        if not request.get_cookie('logged_in_as'):
+        if not request.get_cookie('current_user'):
             redirect('/login/')
         else:
             return func(*args, **kwargs)

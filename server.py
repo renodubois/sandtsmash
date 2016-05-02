@@ -81,7 +81,7 @@ def validate_signup():
 @load_alerts
 def log_out():
     if request.get_cookie('current_user'):
-        response.set_cookie('current_user', '')
+        response.delete_cookie('current_user')
         save_success('You have been successfully logged out.')
     redirect('/')
 

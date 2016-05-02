@@ -5,11 +5,13 @@ import sys
 from bottle import (app, Bottle, get, post, response, request, route, run, jinja2_view,
 redirect, static_file)
 
-from users import retrieveUserInfo
+from users import retrieveUserInfo, updateCurUsers
 from signup import formValidation, formInsertion
 from authentication import requiresLogin, checkLogin
 from alerts import load_alerts, save_danger, save_success
 from beaker.middleware import SessionMiddleware
+
+users = []
 
 @route('/assets/<path:path>')
 def static(path):
@@ -116,4 +118,6 @@ smashServer = SessionMiddleware(smashServer, sessionOptions)
 
 
 # Run the server:
-run(app=smashServer, host='131.151.155.118', port=80)
+if __name__ == '__main__':
+    updateCurUsers
+    run(app=smashServer, host='131.151.155.118', port=80)

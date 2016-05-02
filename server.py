@@ -22,7 +22,7 @@ def static(path):
 def index():
     if request.get_cookie('current_user'):
         return {'currentUser':request.get_cookie('current_user')}
-	return {}
+    return {}
 
 # Login page
 @get('/login/')

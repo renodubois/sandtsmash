@@ -76,6 +76,14 @@ def validate_signup():
         redirect('/login/')
         save_success('User created successfully')
 
+# Logout of the website.
+@get('/logout/')
+@load_alerts
+def log_out():
+    if request.get_cookie('current_user'):
+        response.set_cookie('current_user', '')
+        save_success('You have been successfully logged out.')
+    redirect('/')
 
 # Rankings page
 

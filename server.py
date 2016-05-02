@@ -22,13 +22,15 @@ def static(path):
 def index():
     if request.get_cookie('current_user'):
         return {'currentUser':request.get_cookie('current_user')}
-    return {}
+	return {}
 
 # Login page
 @get('/login/')
 @jinja2_view("templates/login.html")
 @load_alerts
 def show_login():
+    if request.get_cookie('current_user'):
+        return {'currentUser':request.get_cookie('current_user')}
 	return {}
 
 @post('/login/')
@@ -57,6 +59,8 @@ def validate_login():
 @jinja2_view("templates/signup.html")
 @load_alerts
 def show_signup():
+    if request.get_cookie('current_user'):
+        return {'currentUser':request.get_cookie('current_user')}
     return {}
 
 @post('/signup/')
@@ -84,6 +88,8 @@ def validate_signup():
 @requiresLogin
 @load_alerts
 def show_forum():
+    if request.get_cookie('current_user'):
+        return {'currentUser':request.get_cookie('current_user')}
 	return {}
 
 # Configurations for the Alerts module.

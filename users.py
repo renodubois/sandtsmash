@@ -1,4 +1,5 @@
 import mysql.connector
+from setup import MY_SQL_CONNECTION
 
 def retrieveUserInfo(username):
     # Takes a username, and returns a dict with info related to that user.

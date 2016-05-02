@@ -4,9 +4,9 @@ import sys
 
 from bottle import (app, Bottle, get, post, response, request, route, run, jinja2_view,
 redirect, static_file)
+
+from users import retrieveUserInfo
 from signup import formValidation, formInsertion
-
-
 from authentication import requiresLogin, checkLogin
 from alerts import load_alerts, save_danger, save_success
 from beaker.middleware import SessionMiddleware
@@ -92,6 +92,7 @@ def log_out():
 # Profile page
 
 @get('/<username>/')
+@jinja2_view("templates/profile.html")
 def show_profile(username):
     userInfo = retrieveUserInfo(username)
 

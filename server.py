@@ -37,7 +37,7 @@ def validate_login():
         redirect('/login/')
     # If user signed in successfully:
     # Grab their username, and sanitize it.
-    username = None
+    username = loginForm['username']
     # Create a session variable equal to their username:
     response.set_cookie("current_user", username, path='/')
     # Let them know they've been signed in successfully:

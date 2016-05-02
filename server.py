@@ -36,6 +36,15 @@ def validate_login():
             save_danger(i)
         redirect('/login/')
     # If user signed in successfully:
+    # Grab their username, and sanitize it.
+    username = None
+    # Create a session variable equal to their username:
+    response.set_cookie("current_user", username, path='/')
+    # Let them know they've been signed in successfully:
+    save_success('Successfully logged in as {}'.format(username))
+    # Redirect them back to the home page:
+    redirect('/')
+
 
 
 # Signup page

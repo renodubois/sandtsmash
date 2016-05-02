@@ -65,7 +65,6 @@ def validate_signup():
         for i in errors:
             save_danger(i)
         redirect('/signup/')
-    else:
         
 
 # Rankings page

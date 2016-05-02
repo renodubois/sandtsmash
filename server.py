@@ -95,6 +95,7 @@ def log_out():
 @jinja2_view("templates/profile.html")
 def show_profile(username):
     userInfo = retrieveUserInfo(username)
+    return {'username' : username}
 
 # Forum page
 @get('/forum/')

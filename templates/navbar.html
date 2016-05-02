@@ -16,12 +16,16 @@
 			<ul class="nav navbar-nav">
 				<li><a href="/events/">Events</a></li>
 				<li><a href="/rankings/">Rankings</a></li>
-				<li><a href="/forum/">Forums<span class="sr-only">(current)</span></a></li>
+				<li><a href="/forum/">Forums</a></li>
 			</ul>
 			<div class="text-uppercase">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/signup/">Sign Up</a></li>
-					<li><a href="/login/"><span class="glyphicon glyphicon-user"></span> Log In</a></li>
+					<li><a href="/signup/">{{ currentUser | default('Sign Up') }}</a></li>
+					<li><a href="/login/">{% if currentUser %}
+                                          Log Out
+                                          {% else %}
+                                          Log In
+                                          </a></li>
 				</ul>
 			</div>
 			</form>

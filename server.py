@@ -20,6 +20,7 @@ def static(path):
 @jinja2_view("templates/index.html")
 @load_alerts
 def index():
+    print(request.get_cookie('current_user'))
     if request.get_cookie('current_user'):
         return {'currentUser':request.get_cookie('current_user')}
     return {}
@@ -30,7 +31,7 @@ def index():
 @load_alerts
 def show_login():
     if request.get_cookie('current_user'):
-        return {'currentUser':request.get_cookie('current_user')}
+        redirect('/')
     return {}
 
 @post('/login/')
@@ -81,7 +82,7 @@ def validate_signup():
 @load_alerts
 def log_out():
     if request.get_cookie('current_user'):
-        response.delete_cookie('current_user')
+        response.set_cookie('current_user', "", path='/')
         save_success('You have been successfully logged out.')
     redirect('/')
 

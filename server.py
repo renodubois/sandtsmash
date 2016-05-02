@@ -66,7 +66,9 @@ def validate_signup():
             save_danger(i)
         redirect('/signup/')
     else:
-        
+        formInsertion(signupForm)
+        redirect('/login/')
+        save_success('User created successfully')
 
 # Rankings page
 

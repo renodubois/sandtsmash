@@ -3,12 +3,14 @@ import mysql.connector
 
 
 def formValidation(form):
+    #Import all of the form information into variables
     username = form['username']
     fname = form['fname']
     lname = form['lname']
     location = form['location']
     password = form['password']
     password_confirm = form['password-confirm']
+    #Create list to hold all the errors
     error = []
     if len(username) < 4 or len(username) > 20:
         error.append('Username must be between 4 and 20 characters!')
@@ -31,6 +33,7 @@ def formValidation(form):
 
 
 def formInsertion(form):
+    # Try and connect to the database
     try:
         conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
         password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
@@ -43,4 +46,17 @@ def formInsertion(form):
         else:
             print(err)
     else:
-        pass
+        # Define a cursor, used to interact with our database.
+        cursor = conn.cursor()
+        #Import all of the form information into variables
+        username = form['username']
+        fname = form['fname']
+        lname = form['lname']
+        location = form['location']
+        password = form['password']
+
+        addPlayer = ('INSERT INTO Player '
+                    '(Username, Password, F_name, L_name, Location) '
+                    'VALUES ({}, {}, {}, {}, {})'.format(username, fname, lname, location, password))
+        #Insert new Player into the Database
+        cursor.execute(addPlayer)

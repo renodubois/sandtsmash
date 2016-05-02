@@ -4,6 +4,8 @@ import sys
 
 from bottle import (app, Bottle, get, post, response, request, route, run, jinja2_view,
 redirect, static_file)
+from signup import formValidation
+
 
 from authentication import requiresLogin, checkLogin
 from alerts import load_alerts, save_danger, save_success
@@ -57,7 +59,14 @@ def show_signup():
 
 @post('/signup/')
 def validate_signup():
-    return {}
+    signupForm = request.forms
+    errors = formValidation(signupForm)
+    if errors:
+        for i in errors:
+            save_danger(i)
+        redirect('/signup/')
+    else:
+        
 
 # Rankings page
 

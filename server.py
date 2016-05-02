@@ -70,6 +70,7 @@ def validate_signup():
         redirect('/login/')
         save_success('User created successfully')
 
+
 # Rankings page
 
 

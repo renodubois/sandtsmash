@@ -7,6 +7,7 @@ redirect, static_file)
 
 from authentication import requiresLogin, checkLogin
 from alerts import load_alerts, save_danger, save_success
+from beaker.middleware import SessionMiddleware
 
 @route('/assets/<path:path>')
 def static(path):
@@ -14,8 +15,8 @@ def static(path):
 
 # Main page.
 @get('/')
-@load_alerts
 @jinja2_view("templates/index.html")
+@load_alerts
 def index():
 	return {}
 
@@ -63,10 +64,13 @@ def show_forum():
 	return {}
 
 # Configurations for the Alerts module.
-session_options = {
+sessionOptions = {
     'session.type': 'cookie',
     'session.validate_key': 'super-secret'
 }
+smashServer = app()
+smashServer = SessionMiddleware(smashServer, sessionOptions)
+
 
 # Run the server:
-run(host='131.151.155.118', port=80)
+run(app=smashServer, host='131.151.155.118', port=80)

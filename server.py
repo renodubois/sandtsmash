@@ -22,7 +22,7 @@ def static(path):
 def index():
     if request.get_cookie('current_user'):
         return {'currentUser':request.get_cookie('current_user')}
-	return {}
+    return {}
 
 # Login page
 @get('/login/')
@@ -31,7 +31,7 @@ def index():
 def show_login():
     if request.get_cookie('current_user'):
         return {'currentUser':request.get_cookie('current_user')}
-	return {}
+    return {}
 
 @post('/login/')
 def validate_login():
@@ -90,7 +90,7 @@ def validate_signup():
 def show_forum():
     if request.get_cookie('current_user'):
         return {'currentUser':request.get_cookie('current_user')}
-	return {}
+    return {}
 
 # Configurations for the Alerts module.
 sessionOptions = {

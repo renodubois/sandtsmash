@@ -1,11 +1,14 @@
+from setup import MY_SQL_CONNECTION
+import mysql.connector
+
+
 def formValidation(form):
-    signupForm = request.form
-    username = signupForm['username']
-    fname = signupForm['fname']
-    lname = signupForm['lname']
-    location = signupForm['location']
-    password = signupForm['password']
-    password_confirm = signupForm['password-confirm']
+    username = form['username']
+    fname = form['fname']
+    lname = form['lname']
+    location = form['location']
+    password = form['password']
+    password_confirm = form['password-confirm']
     error = []
     if len(username) < 4 or len(username) > 20:
         error.append('Username must be between 4 and 20 characters!')
@@ -28,4 +31,16 @@ def formValidation(form):
 
 
 def formInsertion(form):
-    pass
+    try:
+        conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
+        password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
+        database=MY_SQL_CONNECTION[3])
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Something is wrong w/ username and password')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Test database doesn\'t exist')
+        else:
+            print(err)
+    else:
+        pass

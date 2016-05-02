@@ -22,8 +22,8 @@ def index():
 
 # Login page
 @get('/login/')
-@load_alerts
 @jinja2_view("templates/login.html")
+@load_alerts
 def show_login():
 	return {}
 
@@ -41,8 +41,8 @@ def validate_login():
 # Signup page
 
 @get('/signup/')
-@load_alerts
 @jinja2_view("templates/signup.html")
+@load_alerts
 def show_signup():
     return {}
 
@@ -58,8 +58,8 @@ def validate_signup():
 
 # Forum page
 @get('/forum/')
-@load_alerts
 @requiresLogin
+@load_alerts
 def show_forum():
 	return {}
 

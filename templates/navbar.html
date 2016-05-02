@@ -21,10 +21,7 @@
 			<div class="text-uppercase">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/signup/">{{ currentUser | default('Sign Up') }}</a></li>
-					<li><a href="/login/">{% if currentUser %}
-                                          Log Out
-                                          {% else %}
-                                          Log In
+                    <li><a href="/login/">{% if currentUser %} Log Out {% else %} Log In
 					  {% endif  %}
                                           </a></li>
 				</ul>

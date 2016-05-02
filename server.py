@@ -76,8 +76,10 @@ def validate_signup():
         redirect('/signup/')
     else:
         formInsertion(signupForm)
+        save_success('Account created successfully!')
+        users = updateCurUsers
         redirect('/login/')
-        save_success('User created successfully')
+
 
 # Logout of the website.
 @get('/logout/')
@@ -119,5 +121,5 @@ smashServer = SessionMiddleware(smashServer, sessionOptions)
 
 # Run the server:
 if __name__ == '__main__':
-    updateCurUsers
+    users = updateCurUsers
     run(app=smashServer, host='131.151.155.118', port=80)

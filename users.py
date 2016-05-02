@@ -14,14 +14,16 @@ def updateCurUsers():
         else:
             print(err)
     else:
+        users = []
         cursor = conn.cursor()
         query = "SELECT * FROM Player"
         cursor.execute(query)
-        for (Username) in cursor:
-            print(result)
+        for result in cursor:
+            users.append(result[0])
 
         cursor.close()
         conn.close()
+        return users
 
 def retrieveUserInfo(username):
     # Takes a username, and returns a dict with info related to that user.

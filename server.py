@@ -4,7 +4,7 @@ import sys
 
 from bottle import (app, Bottle, get, post, response, request, route, run, jinja2_view,
 redirect, static_file)
-from signup import formValidation
+from signup import formValidation, formInsertion
 
 
 from authentication import requiresLogin, checkLogin

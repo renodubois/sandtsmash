@@ -91,6 +91,9 @@ def log_out():
 
 # Profile page
 
+@get('/<username>/')
+def show_profile(username):
+    userInfo = retrieveUserInfo(username)
 
 # Forum page
 @get('/forum/')

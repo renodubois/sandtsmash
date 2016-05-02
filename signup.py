@@ -50,12 +50,12 @@ def formInsertion(form):
         cursor = conn.cursor()
         #Import all of the form information into variables
         username = form['username']
+        password = form['password']
         fname = form['fname']
         lname = form['lname']
         location = form['location']
-        password = form['password']
 
-        addPlayer = ("INSERT INTO Player (Username, Password, F_name, L_name, Location) VALUES ('{}', '{}', '{}', '{}', '{}')".format(username, fname, lname, location, password))
+        addPlayer = ("INSERT INTO Player (Username, Password, F_name, L_name, Location) VALUES ('{}', '{}', '{}', '{}', '{}')".format(username, password, fname, lname, location))
         #Insert new Player into the Database
         cursor.execute(addPlayer)
         cursor.close()

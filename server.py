@@ -20,6 +20,8 @@ def static(path):
 @jinja2_view("templates/index.html")
 @load_alerts
 def index():
+    if request.get_cookie('current_user'):
+        return {'currentUser' : request.get_cookie('current_user')}
 	return {}
 
 # Login page
@@ -65,7 +67,8 @@ def validate_signup():
         for i in errors:
             save_danger(i)
         redirect('/signup/')
-        
+    else:
+        pass
 
 # Rankings page
 

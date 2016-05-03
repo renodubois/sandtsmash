@@ -94,7 +94,8 @@ def log_out():
 @jinja2_view("templates/events.html")
 @load_alerts
 def view_events():
-    return {}
+    if request.get_cookie('current_user'):
+        return { 'currentUser' : request.get_cookie('current_user') }
 
 # Profile page
 

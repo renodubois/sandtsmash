@@ -53,3 +53,32 @@ def retrieveUserInfo(username):
         cursor.close()
         conn.close()
         return userInfo
+
+
+def editUserProfile(form):
+    try:
+        conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
+        password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
+        database=MY_SQL_CONNECTION[3])
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Something is wrong w/ username and password')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Test database doesn\'t exist')
+        else:
+            print(err)
+    else:
+        if(form['fname']):
+            # Make sure name is valid
+
+            # Modify the database
+
+        if(form['lname']):
+            # Make sure name is valid
+
+            # Modify the database
+
+        if(form['location']):
+            # Make sure location is valid
+
+            # Modify the database

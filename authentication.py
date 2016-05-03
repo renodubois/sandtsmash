@@ -40,11 +40,11 @@ def checkLogin(form):
         username = form['username']
         password = form['password']
         # Encrypt the entered password
-        # password = hashlib.sha256(password.encode())
+        password = hashlib.sha256(password.encode())
         # Sanitize our input.
 
         # Check to see if the username and password match.
-        query = "SELECT * FROM Player WHERE Username ='{}' and Password ='{}'".format(username, password)
+        query = "SELECT * FROM Player WHERE Username ='{}' and Password ='{}'".format(username, password.hexdigest())
         cursor.execute(query)
         numRows = 0
         for r in cursor:

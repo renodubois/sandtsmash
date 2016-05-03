@@ -1,6 +1,6 @@
 from setup import MY_SQL_CONNECTION
 import mysql.connector
-
+import hashlib
 
 def formValidation(form):
     #Import all of the form information into variables
@@ -51,11 +51,12 @@ def formInsertion(form):
         #Import all of the form information into variables
         username = form['username']
         password = form['password']
+        password = hashlib.sha256(password.encode())
         fname = form['fname']
         lname = form['lname']
         location = form['location']
 
-        addPlayer = ("INSERT INTO Player (Username, Password, F_name, L_name, Location) VALUES ('{}', '{}', '{}', '{}', '{}')".format(username, password, fname, lname, location))
+        addPlayer = ("INSERT INTO Player (Username, Password, F_name, L_name, Location) VALUES ('{}', '{}', '{}', '{}', '{}')".format(username, password.hexdigest(), fname, lname, location))
         #Insert new Player into the Database
         cursor.execute(addPlayer)
         conn.commit()

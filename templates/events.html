@@ -1,0 +1,27 @@
+{% block content %}
+
+<h3>Current Events</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Event Name</th>
+            <th>Location</th>
+            <th>Entry Fee</th>
+            <th>Number of Attendees<th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in currentEvents %}
+        <tr>
+            <th scope="row">{{ event.id }}</th>
+            <th>{{ event.name }}</th>
+            <th>{{ event.location }}</th>
+            <th>${{ event.entryfee }}</th>
+            <th>{{ event.numAttendees }}</th>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+
+{% endblock %}

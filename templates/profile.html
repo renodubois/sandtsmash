@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<div class="info col-md-6">
+<div class="info col-md-4">
     <h2>{{ username }}</h2>
     <h4>Name: {{ fname }} {{ lname }}</h4>
     <h4>Location: {{ location }}</h4>
     <h4>Ranking: {{ ranking | default("Not yet ranked!") }}
     <h4>Character Mains: {% for main in charMains %} <li>{{ main }}</li> {% endfor %}</h4> 
 </div>
-<div class="col-md-6 {% if not ownsProfile %}hidden{% endif %}">
+<div class="col-md-8 {% if not ownsProfile %}hidden{% endif %}">
     <h3> Edit your Profile </h3>
     <form action="/edit-{{ username }}/">
         <div class="form-group">

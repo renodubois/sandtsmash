@@ -97,7 +97,12 @@ def log_out():
 @jinja2_view("templates/profile.html")
 def show_profile(username):
     userInfo = retrieveUserInfo(username)
-    return {'username' : username}
+    userInfo['username'] = username
+    if request.get_cookie('current_user') == username:
+        userInfo['ownsProfile'] = True
+    if request.get_cookie('current_user'):
+        userInfo['currentUser'] = request.get_cookie('current_user')
+    return userInfo
 
 # Forum page
 @get('/forum/')
@@ -119,5 +124,4 @@ smashServer = SessionMiddleware(smashServer, sessionOptions)
 
 # Run the server:
 if __name__ == '__main__':
-    updateCurUsers
     run(app=smashServer, host='131.151.155.118', port=80)

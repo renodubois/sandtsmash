@@ -70,15 +70,15 @@ def editUserProfile(form):
     else:
         if(form['fname']):
             # Make sure name is valid
-
+            pass
             # Modify the database
 
         if(form['lname']):
             # Make sure name is valid
-
+            pass
             # Modify the database
 
         if(form['location']):
             # Make sure location is valid
-
+            pass
             # Modify the database

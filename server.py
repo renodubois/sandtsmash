@@ -89,8 +89,12 @@ def log_out():
         save_success('You have been successfully logged out.')
     redirect('/')
 
-# Rankings page
-
+# Events page
+@get('/events/')
+@jinja2_view("templates/events.html")
+@load_alerts
+def view_events():
+    return {}
 
 # Profile page
 

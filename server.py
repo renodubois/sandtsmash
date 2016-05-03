@@ -11,7 +11,6 @@ from authentication import requiresLogin, checkLogin
 from alerts import load_alerts, save_danger, save_success
 from beaker.middleware import SessionMiddleware
 
-users = []
 
 @route('/assets/<path:path>')
 def static(path):
@@ -76,8 +75,10 @@ def validate_signup():
         redirect('/signup/')
     else:
         formInsertion(signupForm)
+        save_success('Account created successfully!')
+        users = updateCurUsers
         redirect('/login/')
-        save_success('User created successfully')
+
 
 # Logout of the website.
 @get('/logout/')

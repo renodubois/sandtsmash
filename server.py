@@ -92,13 +92,13 @@ def log_out():
 
 # Events page
 @get('/events/')
-@jinja2_view("templates/events.html")
-@load_alerts
+@jinja2_view('templates/events.html')
 def view_events():
     eventData = {}
     eventData['currentEvents'] = getCurrentEvents()
     if request.get_cookie('current_user'):
         eventData['currentUser'] = request.get_cookie('current_user')
+    return eventData
 
 # Profile page
 

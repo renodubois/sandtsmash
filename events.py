@@ -26,12 +26,12 @@ def getCurrentEvents():
         # Dictionary used to hold event details.
         eventInfo = {}
         # Current time, used to find out if our events have happened yet or not.
-        curTime = datetime.now()
+        curTime = datetime.datetime.today()
         # Format used to convert SQL Datetime to Python's datetime
         dateFormat = '%Y-%m-%d %H:%M:%S'
         # The list of dicts that we'll be returning.
         collectedEvents = []
-        cursor.exectue("SELECT * FROM Event")
+        cursor.execute("SELECT * FROM Event")
 
         for r in cursor:
             eventTime = datetime.datetime.strptime(r[1])

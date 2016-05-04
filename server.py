@@ -77,7 +77,6 @@ def validate_signup():
     else:
         formInsertion(signupForm)
         save_success('Account created successfully!')
-        users = updateCurUsers
         redirect('/login/')
 
 

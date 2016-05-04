@@ -50,6 +50,61 @@ def getCurrentEvents():
 def getFinishedEvents():
     pass
 
+def eventValidation(form):
+    #Import all of the form information into variables
+    event_id = form['event_id']
+    event_date = form['event_date']
+    entry_fee = form['entry_fee']
+    max_participants = form['max_participants']
+    location = form['location']
+    is_streaming = form['is_streaming']
+    provides_stream = form['provides_stream']
+    #Create list to hold all the errors
+    error = []
+    if event_id = '':
+        pass
+        error.append('')
+    if event_date == '':
+        error.append('Event date field must be filled out!')
+    if event_date <= NOW():
+        error.append('The date/time cannot already have passed!')
+    if max_participants == '':
+        error.append('You must have a maximum number of participants!')
+    if location == '':
+        error.append('Location field must be filled out!')
+    return error
+
+def eventInsertion(form):
+    # Try and connect to the database
+    try:
+        conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
+        password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
+        database=MY_SQL_CONNECTION[3])
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Something is wrong w/ username and password')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Test database doesn\'t exist')
+        else:
+            print(err)
+    else:
+        # Define a cursor, used to interact with our database.
+        cursor = conn.cursor()
+        #Import all of the form information into variables
+        event_id = form['event_id']
+        event_date = form['event_date']
+        entry_fee = form['entry_fee']
+        max_participants = form['max_participants']
+        location = form['location']
+        is_streaming = form['is_streaming']
+        provides_stream = form['provides_stream']
+
+        addEvent = ("INSERT INTO Event (Event_id, Event_date, Entry_fee, Max_participants, Location, Is_streaming, Provides_stream) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(event_id, event_date, entry_fee, max_participants, location, is_streaming, provides_stream))
+        #Insert new Player into the Database
+        cursor.execute(addEvent)
+        conn.commit()
+        cursor.close()
+        conn.close()
 
 def editEvent():
     pass

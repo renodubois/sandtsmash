@@ -100,9 +100,15 @@ def view_events():
         eventData['currentUser'] = request.get_cookie('current_user')
     return eventData
 
+# View a detailed view of the event
+@get('/events/event-<id>')
+def view_event_details():
+    pass
+
+
 # Profile page
 
-@get('/<username>/')
+@get('/users/<username>/')
 @jinja2_view("templates/profile.html")
 def show_profile(username):
     userInfo = retrieveUserInfo(username)

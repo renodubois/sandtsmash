@@ -5,9 +5,10 @@ import sys
 from bottle import (app, Bottle, get, post, response, request, route, run, jinja2_view,
 redirect, static_file)
 
-from users import retrieveUserInfo, updateCurUsers
+from users import retrieveUserInfo, editUserProfile
 from signup import formValidation, formInsertion
 from authentication import requiresLogin, checkLogin
+from events import getCurrentEvents
 from alerts import load_alerts, save_danger, save_success
 from beaker.middleware import SessionMiddleware
 
@@ -94,8 +95,10 @@ def log_out():
 @jinja2_view("templates/events.html")
 @load_alerts
 def view_events():
+    eventData = {}
+    eventData['currentEvents'] = getCurrentEvents()
     if request.get_cookie('current_user'):
-        return { 'currentUser' : request.get_cookie('current_user') }
+        eventData['currentUser'] = request.get_cookie('current_user')
 
 # Profile page
 

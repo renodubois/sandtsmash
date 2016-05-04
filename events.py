@@ -39,9 +39,20 @@ def getCurrentEvents():
             if eventTime > curTime:
                 eventInfo['id'] = r[0]
                 eventInfo['event-date'] = r[1]
-                eventInfo['prize-money'] = r[2]
+                eventInfo['entryfee'] = float(r[2])
                 eventInfo['max-players'] = r[3]
                 eventInfo['location'] = r[4]
                 eventInfo['start-time'] = r[5]
                 collectedEvents.append(eventInfo)
         return collectedEvents
+
+
+def getFinishedEvents():
+    pass
+
+
+def editEvent():
+    pass
+
+def deleteEvent():
+    pass

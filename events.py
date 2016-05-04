@@ -38,11 +38,11 @@ def getCurrentEvents():
             # Only grab events that have not happened yet.
             if eventTime > curTime:
                 eventInfo['id'] = r[0]
-                eventInfo['event-date'] = r[1]
+                eventInfo['event-date'] = datetime.datetime.strptime(r[1])
                 eventInfo['entryfee'] = float(r[2])
                 eventInfo['max-players'] = r[3]
                 eventInfo['location'] = r[4]
-                eventInfo['start-time'] = r[5]
+                eventInfo['name'] = r[7]
                 collectedEvents.append(eventInfo)
         return collectedEvents
 

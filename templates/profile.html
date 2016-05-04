@@ -33,7 +33,9 @@
                 <div class="{% if charMains %} col-md-6 {% else %} col-md-12 {% endif %}">
                     <label for="add-main">Add a main</label>
                     <select class="form-control" name="add-main">
-                        <option value="mario">Mario</option>
+                        {% for char in characters %}
+                        <option value="{{ char }}">{{ char }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="{% if charMains %} col-md-6 {% else %} hidden {% endif %}">

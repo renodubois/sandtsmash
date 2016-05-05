@@ -14,6 +14,7 @@
             <th>Entry Fee</th>
             <th>Game</th>
             <th>Number of Attendees<th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,7 @@
             <th>${{ event.entryfee }}</th>
             <th>Super Smash Bros. Melee</th>
             <th>{{ event.numAttendees }}/{{ event.maxPlayers }}</th>
+            {% if currentUser %}<th><a class="btn btn-default" href="/events/joinEvent/{{ event.id }}" role="button">Register</a></th>{% endif %}
         </tr>
         {% endfor %}
     </tbody>

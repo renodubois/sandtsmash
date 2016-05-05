@@ -127,10 +127,10 @@ def eventInsertion(form):
             is_streaming = 1
         else:
             is_streaming = 0
-        if 'provides_stream' in form.keys()
+        if 'provides_stream' in form.keys():
             provides_stream = 1
         else:
-            is_streaming = 0
+            provides_stream = 0
         event_name = form['event_name']
         #game = form['game']
 

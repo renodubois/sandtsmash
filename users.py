@@ -89,8 +89,6 @@ def editUserProfile(form, username):
             else:
                 modifyFname = ("UPDATE Player SET F_name = '{}' WHERE Username = '{}'".format(fname, username))
                 cursor.execute(modifyFname)
-        else:
-            error.append('First name field must be filled out!')
 
         if lname:
             # Make sure name is valid
@@ -100,16 +98,12 @@ def editUserProfile(form, username):
             else:
                 modifyLname = ("UPDATE Player SET L_name = '{}' WHERE Username = '{}'".format(lname, username))
                 cursor.execute(modifyFname)
-        else:
-            error.append('Last name field must be filled out!')
+
 
         if location:
             # Make sure location is valid
             modifyLocation = ("UPDATE Player SET Location = '{}' WHERE Username = '{}'".format(location, username))
             cursor.execute(modifyFname)
-        else:
-            error.append('Location field must be filled out!')
-            # Modify the database
 
         if newMain:
             if newMain != "Select an Option":

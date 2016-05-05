@@ -96,9 +96,15 @@ def log_out():
 @load_alerts
 def view_events():
     eventData = {}
-    eventData['currentEvents'] = getCurrentEvents()
     if request.get_cookie('current_user'):
+        eventData['currentEvents'] = getCurrentEvents(request.get_cookie('current_user'))
         eventData['currentUser'] = request.get_cookie('current_user')
+        if userInEvent(request.get_cookie('current_user')):
+            eventData['userRegistered'] = True
+        else:
+            eventData['userRegistered'] = False
+    else:
+        eventData['currentEvents'] = getCurrentEvents('')
     return eventData
 
 # View a detailed view of the event
@@ -120,6 +126,7 @@ def join_event(eventId):
 
 
 # Unregister from an Event
+
 @get('/events/leaveEvent/<eventId>')
 @load_alerts
 def leave_event(eventId):

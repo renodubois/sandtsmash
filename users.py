@@ -108,8 +108,16 @@ def editUserProfile(form, username):
 
         if newMain:
             if newMain != "Select an Option":
-                addMain = ("INSERT INTO Main_characters (Character_name, Username) VALUES ('{}', '{}')".format(newMain, username))
-                cursor.execute(addMain)
+                checkCursor = conn.cursor()
+                checkMain = ("SELECT * FROM Main_characters WHERE Character_name = '{}' AND Username = '{}'".format(newMain, username))
+                checkCursor.execute(checkMain)
+                for r in checkCursor:
+                    numRows += 1
+                    # If the result is anything but one result, it's invalid. Return with errors.
+                if numRows == 1:
+                    addMain = ("INSERT INTO Main_characters (Character_name, Username) VALUES ('{}', '{}')".format(newMain, username))
+                    cursor.execute(addMain)
+                checkCursor.close()
 
         if delMain:
             deleteMain = ("DELETE FROM Main_characters WHERE Usernamne = '{}' AND Character_name = '{}'")

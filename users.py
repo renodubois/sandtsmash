@@ -113,7 +113,8 @@ def editUserProfile(form, username):
             addMain = ("INSERT INTO Main_characters (Character_name, Username) VALUES ('{}', '{}')".format(newMain, username))
             cursor.execute(addMain)
 
-        if
+        if delMain:
+            pass
 
         if newPass:
             if oldPass:

@@ -97,13 +97,13 @@ def editUserProfile(form, username):
             # Modify the database
             else:
                 modifyLname = ("UPDATE Player SET L_name = '{}' WHERE Username = '{}'".format(lname, username))
-                cursor.execute(modifyFname)
+                cursor.execute(modifyLname)
 
 
         if location:
             # Make sure location is valid
             modifyLocation = ("UPDATE Player SET Location = '{}' WHERE Username = '{}'".format(location, username))
-            cursor.execute(modifyFname)
+            cursor.execute(modifyLocation)
 
         if newMain:
             if newMain != "Select an Option":

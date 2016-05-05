@@ -174,3 +174,27 @@ def registerForEvent(eventId, username):
             cursor.execute("INSERT INTO Competes_in (Event_id, Username) VALUES ('{}', '{}')".format(eventId, username))
             conn.commit()
         cursor.close()
+
+def unregisterFromEvent(eventId, username):
+    try:
+        conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
+        password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
+        database=MY_SQL_CONNECTION[3], buffered=True)
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Something is wrong w/ username and password')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Test database doesn\'t exist')
+        else:
+            print(err)
+    else:
+        # Check to see that they're registered for the event
+        cursor = conn.cursor()
+        eventId = int(eventId)
+        cursor.execute("SELECT * FROM Competes_in WHERE Username='{}' and Event_id='{}'".format(username, eventId), data)
+        results = []
+        for r in data:
+            print(r)
+            results.append(r)
+        if len(results) == 1:
+            pass

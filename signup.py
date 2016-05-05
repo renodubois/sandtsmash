@@ -15,9 +15,9 @@ def formValidation(form):
     #if type(username) is str:
     if len(username) < 4 or len(username) > 20:
         error.append('Username must be between 4 and 20 characters!')
-    #else:
-    #    error.append('Please input a proper username')
-    #if type(fname) is str:
+    # Check to make sure the username is unique
+    if usernameExists(username):
+        error.append('Username must be unique!')
     if fname == '':
         error.append('First name field must be filled out!')
     if len(fname) > 30:
@@ -72,3 +72,26 @@ def formInsertion(form):
         conn.commit()
         cursor.close()
         conn.close()
+
+
+def usernameExists(username):
+    try:
+        conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
+        password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
+        database=MY_SQL_CONNECTION[3])
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Something is wrong w/ username and password')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Test database doesn\'t exist')
+        else:
+            print(err)
+    else:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Player WHERE Username='{}'".format(username))
+        numRows = 0
+        for r in cursor:
+            numRows += 1
+        if numRows != 0:
+            return True
+        return False

@@ -99,10 +99,6 @@ def view_events():
     if request.get_cookie('current_user'):
         eventData['currentEvents'] = getCurrentEvents(request.get_cookie('current_user'))
         eventData['currentUser'] = request.get_cookie('current_user')
-        if userInEvent(request.get_cookie('current_user')):
-            eventData['userRegistered'] = True
-        else:
-            eventData['userRegistered'] = False
     else:
         eventData['currentEvents'] = getCurrentEvents('')
     return eventData

@@ -121,7 +121,7 @@ def editUserProfile(form, username):
 
         if delMain:
             if delMain != "Nothing":
-                deleteMain = ("DELETE FROM Main_characters WHERE Username = '{}' AND Character_name = '{}'")
+                deleteMain = ("DELETE FROM Main_characters WHERE Username = '{}' AND Character_name = '{}'".format(username, delMain))
                 cursor.execute(deleteMain)
 
         if newPass:

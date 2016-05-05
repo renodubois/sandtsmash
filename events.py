@@ -140,8 +140,25 @@ def editEvent():
     pass
 
 
-def deleteEvent():
-    pass
+def deleteEvent(event):
+    # Try and connect to the database
+    try:
+        conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
+        password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
+        database=MY_SQL_CONNECTION[3])
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Something is wrong w/ username and password')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Test database doesn\'t exist')
+        else:
+            print(err)
+    else:
+        # Define a cursor, used to interact with our database.
+        cursor = conn.cursor()
+        #Import all of the form information into variables
+
+        deletion = ("DELETE FROM Event WHERE Event_id = '{}' CASCADE".format(event) )
 
 
 def userInEvent(eventId, username):

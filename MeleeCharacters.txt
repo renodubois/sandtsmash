@@ -15,7 +15,7 @@ Mario
 Marth
 Mewtwo
 Mr. Game & Watch
-newPassPeach
+Peach
 Pichu
 Pikachu
 Roy

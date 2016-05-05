@@ -98,7 +98,7 @@ def editUserProfile(form, username):
                 modifyLname = ("UPDATE Player SET L_name = '{}' WHERE Username = '{}'".format(lname, username))
                 cursor.execute(modifyFname)
         else:
-            error.append('First name field must be filled out!')
+            error.append('Last name field must be filled out!')
 
         if location:
             # Make sure location is valid
@@ -109,7 +109,7 @@ def editUserProfile(form, username):
             # Modify the database
 
         if add-main:
-            addMain = ("INSERT INTO Main_characters (Character_name, Username) VALUES ('{}', '{}')".format(newMain, username)
+            addMain = ("INSERT INTO Main_characters (Character_name, Username) VALUES ('{}', '{}')".format(newMain, username))
             cursor.execute(addMain)
 
         if newPass:

@@ -8,7 +8,7 @@ redirect, static_file)
 from users import retrieveUserInfo, editUserProfile
 from signup import formValidation, formInsertion
 from authentication import requiresLogin, checkLogin
-from events import getCurrentEvents, registerForEvent
+from events import getCurrentEvents, registerForEvent, unregisterFromEvent
 from alerts import load_alerts, save_danger, save_success
 from beaker.middleware import SessionMiddleware
 
@@ -92,6 +92,7 @@ def log_out():
 # Events page
 @get('/events/')
 @jinja2_view('templates/events.html')
+@load_alerts
 def view_events():
     eventData = {}
     eventData['currentEvents'] = getCurrentEvents()
@@ -108,7 +109,7 @@ def view_event_details():
 @get('/events/joinEvent/<eventId>')
 def join_event(eventId):
     if request.get_cookie('current_user'):
-        unregisterFromEvent(eventId, request.get_cookie('current_user'))
+        registerForEvent(eventId, request.get_cookie('current_user'))
         # TODO: Make save_success output the event's name.
         save_success('Sucessfully registered for event!')
         redirect('/events/')
@@ -117,10 +118,24 @@ def join_event(eventId):
         redirect('/events/')
 
 
+# Unregister from an Event
+@get('/events/leaveEvent/<eventId>')
+@load_alerts
+def leave_event(eventId):
+    if request.get_cookie('current_user'):
+        unregisterFromEvent(eventId, request.get_cookie('current_user'))
+        # TODO: Make save_success output the event's name.
+        save_success('Sucessfully unregistered from the event.')
+        redirect('/events/')
+    else:
+        save_danger('You have to be signed in to do that!')
+        redirect('/events/')
+
 # Profile page
 
 @get('/users/<username>/')
 @jinja2_view("templates/profile.html")
+@load_alerts
 def show_profile(username):
     userInfo = retrieveUserInfo(username)
     userInfo['username'] = username

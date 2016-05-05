@@ -157,7 +157,7 @@ def registerForEvent(eventId, username):
         usernameCursor = conn.cursor()
         eventCursor = conn.cursor()
         cursor = conn.cursor()
-
+        eventId = int(eventId)
         usernameCursor.execute("SELECT * FROM Player WHERE Username='{}'".format(username))
         eventCursor.execute("SELECT * FROM Event WHERE Event_id='{}'".format(eventId))
         usernameResults = []
@@ -170,3 +170,7 @@ def registerForEvent(eventId, username):
         if len(usernameResults) == 1 and len(eventResults) == 1:
             # Add the username and eventId to the Competes_in table.
             cursor.execute("INSERT INTO Competes_in (Event_id, Username) VALUES ('{}', '{}')".format(eventId, username))
+            conn.commit()
+        usernameCursor.close()
+        eventCursor.close()
+        cursor.close()

@@ -127,7 +127,7 @@ def eventInsertion(form):
             is_streaming = 1
         else:
             is_streaming = 0
-        if form['provides_stream']
+        if form['provides_stream']:
             provides_stream = 1
         else:
             is_streaming = 0

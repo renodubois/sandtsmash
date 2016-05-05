@@ -131,7 +131,8 @@ def editUserProfile(form, username):
                         oldPass = hashlib.sha256(oldPass.encode())
                         modifyPass = ("UPDATE Player SET Password = '{}' WHERE Username = '{}' AND Password = '{}' ".format(newPass, username, oldPass))
                         passwordCursor.execute(modifyPass)
-			for r in passwordCursor:
+                        numRows = 0
+                        for r in passwordCursor:
                             numRows += 1
                             # If the result is anything but one result, it's invalid. Return with errors.
                         if numRows != 1:

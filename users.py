@@ -115,7 +115,7 @@ def editUserProfile(form, username):
                 for r in checkCursor:
                     numRows += 1
                     # If the result is anything but one result, it's invalid. Return with errors.
-                if numRows == 1:
+                if numRows == 0:
                     addMain = ("INSERT INTO Main_characters (Character_name, Username) VALUES ('{}', '{}')".format(newMain, username))
                     cursor.execute(addMain)
                 checkCursor.close()
@@ -131,7 +131,7 @@ def editUserProfile(form, username):
                         oldPass = hashlib.sha256(oldPass.encode())
                         modifyPass = ("UPDATE Player SET Password = '{}' WHERE Username = '{}' AND Password = '{}' ".format(newPass, username, oldPass))
                         passwordCursor.execute(modifyPass)
-                        for r in passwordCursor:
+			for r in passwordCursor:
                             numRows += 1
                             # If the result is anything but one result, it's invalid. Return with errors.
                         if numRows != 1:

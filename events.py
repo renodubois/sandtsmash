@@ -164,13 +164,13 @@ def registerForEvent(eventId, username):
         eventResults = []
         for r in usernameCursor:
             usernameResults.append(r)
+        usernameCursor.close()
         for r in eventCursor:
             eventResults.append(r)
+        eventCursor.close()
         # Found them!
         if len(usernameResults) == 1 and len(eventResults) == 1:
             # Add the username and eventId to the Competes_in table.
             cursor.execute("INSERT INTO Competes_in (Event_id, Username) VALUES ('{}', '{}')".format(eventId, username))
             conn.commit()
-        usernameCursor.close()
-        eventCursor.close()
         cursor.close()

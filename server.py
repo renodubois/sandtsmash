@@ -10,7 +10,7 @@ from users import retrieveUserInfo, editUserProfile, getMains
 from signup import formValidation, formInsertion
 from authentication import requiresLogin, checkLogin
 from events import (getCurrentEvents, registerForEvent, unregisterFromEvent, eventValidation,
-eventInsertion)
+eventInsertion, deleteEvent)
 from alerts import load_alerts, save_danger, save_success
 from beaker.middleware import SessionMiddleware
 
@@ -125,6 +125,14 @@ def create_event():
         save_success('Event created successfully!')
         redirect('/events/')
 
+
+# Delete an event, if you're an Admin.
+@get('/events/deleteEvent/<eventId>')
+def remove_event(eventId):
+    deleteEvent(eventId)
+    save_success('Deleted event successfully!')
+    redirect('/events/')
+
 # View a detailed view of the event
 @get('/events/event-<id>')
 def view_event_details():
@@ -157,7 +165,6 @@ def leave_event(eventId):
         redirect('/events/')
 
 # Profile page
-
 @get('/users/<username>/')
 @jinja2_view("templates/profile.html")
 @load_alerts
@@ -172,7 +179,7 @@ def show_profile(username):
     userInfo['charMains'] = getMains(username)
     return userInfo
 
-
+# Submitting a profile change
 @post('/users/<username>/')
 @load_alerts
 def change_profile(username):

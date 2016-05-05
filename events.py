@@ -81,7 +81,7 @@ def eventValidation(form):
     #Import all of the form information into variables
     dateFormat = '%Y-%m-%d %H:%M:%S %p'
 #event_id = form['event_id']
-    event_date = datetime.datetime.strptime(form['event_date'], dateFormat) 
+    event_date = datetime.datetime.strptime(form['event_date'], dateFormat)
     entry_fee = form['entry_fee']
     max_participants = form['max_participants']
     location = form['location']
@@ -262,4 +262,20 @@ def unregisterFromEvent(eventId, username):
 
 
 def deleteEvent(eventId):
-    pass
+    try:
+        conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
+        password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
+        database=MY_SQL_CONNECTION[3], buffered=True)
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Something is wrong w/ username and password')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Test database doesn\'t exist')
+        else:
+            print(err)
+    else:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM Event WHERE Event_id='{}'".format(eventId))
+        conn.commit()
+        cursor.close()
+        conn.close()

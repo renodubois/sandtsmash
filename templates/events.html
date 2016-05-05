@@ -8,7 +8,8 @@
         <tr>
             <th>#</th>
             <th>Event Name</th>
-            <th>Date and Time</th>
+            <th>Date</th>
+            <th>Start Time</th>
             <th>Location</th>
             <th>Entry Fee</th>
             <th>Game</th>
@@ -20,11 +21,12 @@
         <tr>
             <th scope="row">{{ event['id'] }}</th>
             <th>{{ event.name }}</th>
-            <th>{{ event.event-time }}</th>
+            <th>{{ event.eventDate}}</th>
+            <th>{{ event.eventTime }}</th>
             <th>{{ event.location }}</th>
             <th>${{ event.entryfee }}</th>
             <th>Super Smash Bros. Melee</th>
-            <th>{{ event.numAttendees }}/{{ event.max-players }}</th>
+            <th>{{ event.numAttendees }}/{{ event.maxPlayers }}</th>
         </tr>
         {% endfor %}
     </tbody>

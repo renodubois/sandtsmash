@@ -108,7 +108,7 @@ def view_event_details():
 @get('/events/joinEvent/<eventId>')
 def join_event(eventId):
     if request.get_cookie('current_user'):
-        registerForEvent(eventId, request.get_cookie('current_user'))
+        unregisterFromEvent(eventId, request.get_cookie('current_user'))
         # TODO: Make save_success output the event's name.
         save_success('Sucessfully registered for event!')
         redirect('/events/')

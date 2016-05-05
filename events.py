@@ -144,7 +144,7 @@ def registerForEvent(eventId, username):
     try:
         conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
         password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
-        database=MY_SQL_CONNECTION[3])
+        database=MY_SQL_CONNECTION[3], buffered=True)
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
             print('Something is wrong w/ username and password')
@@ -157,16 +157,44 @@ def registerForEvent(eventId, username):
         usernameCursor = conn.cursor()
         eventCursor = conn.cursor()
         cursor = conn.cursor()
-
+        eventId = int(eventId)
         usernameCursor.execute("SELECT * FROM Player WHERE Username='{}'".format(username))
         eventCursor.execute("SELECT * FROM Event WHERE Event_id='{}'".format(eventId))
         usernameResults = []
         eventResults = []
         for r in usernameCursor:
             usernameResults.append(r)
+        usernameCursor.close()
         for r in eventCursor:
             eventResults.append(r)
+        eventCursor.close()
         # Found them!
         if len(usernameResults) == 1 and len(eventResults) == 1:
             # Add the username and eventId to the Competes_in table.
             cursor.execute("INSERT INTO Competes_in (Event_id, Username) VALUES ('{}', '{}')".format(eventId, username))
+            conn.commit()
+        cursor.close()
+
+def unregisterFromEvent(eventId, username):
+    try:
+        conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
+        password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
+        database=MY_SQL_CONNECTION[3], buffered=True)
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Something is wrong w/ username and password')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Test database doesn\'t exist')
+        else:
+            print(err)
+    else:
+        # Check to see that they're registered for the event
+        cursor = conn.cursor()
+        eventId = int(eventId)
+        cursor.execute("SELECT * FROM Competes_in WHERE Username='{}' and Event_id='{}'".format(username, eventId), data)
+        results = []
+        for r in data:
+            print(r)
+            results.append(r)
+        if len(results) == 1:
+            pass

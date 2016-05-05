@@ -111,7 +111,7 @@ def editUserProfile(form, username):
             # Modify the database
 
         if newMain:
-            if newMain != "Select an Option"
+            if newMain != "Select an Option":
                 addMain = ("INSERT INTO Main_characters (Character_name, Username) VALUES ('{}', '{}')".format(newMain, username))
                 cursor.execute(addMain)
 

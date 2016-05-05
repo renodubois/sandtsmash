@@ -50,6 +50,7 @@ def getCurrentEvents(username):
                     eventInfo['userRegistered'] = userInEvent(r[0], username)
                 else:
                     pass
+                print(eventInfo['userRegistered'])
                 collectedEvents.append(eventInfo)
         return collectedEvents
 
@@ -253,5 +254,6 @@ def unregisterFromEvent(eventId, username):
             deleteCursor.close
         else:
             return
+        conn.commit()
         cursor.close()
         conn.close()

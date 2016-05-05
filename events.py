@@ -174,6 +174,7 @@ def registerForEvent(eventId, username):
             cursor.execute("INSERT INTO Competes_in (Event_id, Username) VALUES ('{}', '{}')".format(eventId, username))
             conn.commit()
         cursor.close()
+        conn.close()
 
 def unregisterFromEvent(eventId, username):
     try:
@@ -191,10 +192,16 @@ def unregisterFromEvent(eventId, username):
         # Check to see that they're registered for the event
         cursor = conn.cursor()
         eventId = int(eventId)
-        cursor.execute("SELECT * FROM Competes_in WHERE Username='{}' and Event_id='{}'".format(username, eventId), data)
+        cursor.execute("SELECT * FROM Competes_in WHERE Username='{}' and Event_id='{}'".format(username, eventId))
         results = []
-        for r in data:
+        for r in cursor:
             print(r)
             results.append(r)
         if len(results) == 1:
-            pass
+            deleteCursor = conn.cursor()
+            deleteCursor.execute("DELETE FROM Competes_in WHERE Username='{}' and Event_id='{}'".format(username, eventId))
+            deleteCursor.close
+        else:
+            return
+        cursor.close()
+        conn.close()

@@ -28,12 +28,13 @@ def getCurrentEvents(username):
         # Current time, used to find out if our events have happened yet or not.
         curTime = datetime.datetime.today()
         # Format used to convert SQL Datetime to Python's datetime
-        dateFormat = '%Y-%m-%d %H:%M:%S'
+        dateFormat = '%Y-%m-%d %H:%M:%S %p'
         # The list of dicts that we'll be returning.
         collectedEvents = []
         cursor.execute("SELECT * FROM Event")
 
         for r in cursor:
+            eventInfo = {}
             eventTime = r[1]  #datetime.datetime.strptime(r[1], dateFormat)
             # Only grab events that have not happened yet.
             if eventTime > curTime:
@@ -79,8 +80,9 @@ def getFinishedEvents():
 
 def eventValidation(form):
     #Import all of the form information into variables
-    event_id = form['event_id']
-    event_date = form['event_date']
+    dateFormat = '%Y-%m-%d %H:%M:%S %p'
+#event_id = form['event_id']
+    event_date = datetime.datetime.strptime(form['event_date'], dateFormat) 
     entry_fee = form['entry_fee']
     max_participants = form['max_participants']
     location = form['location']
@@ -89,13 +91,13 @@ def eventValidation(form):
     event_name = form['event_name']
     #Create list to hold all the errors
     error = []
-    if event_id == '':
-        pass
-        error.append('')
+#if event_id == '':
+#       pass
+#       error.append('')
     #if type(event_date) is datetime
     if event_date == '':
         error.append('Event date field must be filled out!')
-    if event_date <= NOW():
+    if event_date <= datetime.datetime.today():
         error.append('The date/time cannot already have passed!')
     if max_participants == '':
         error.append('You must have a maximum number of participants!')

@@ -3,6 +3,7 @@ MY_SQL_CONNECTION = ('root', 'dankmemes', '127.0.0.1', 'RollaSmash')
 
 with open("MeleeCharacters.txt") as meleeFile:
     meleeCharacters = meleeFile.read()
+    meleeCharacters = meleeCharacters.splitline()
 
-for character in meleeCharacters
+for character in meleeCharacters:
     print(character)

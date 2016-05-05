@@ -130,7 +130,7 @@ def editUserProfile(form, username):
                     if len(newPass) >= 6 or len(newPass) <= 36:
                         oldPass = hashlib.sha256(oldPass.encode())
                         newPass = hashlib.sha256(newPass.encode())
-                        modifyPass = ("UPDATE Player SET Password = '{}' WHERE Username = '{}' AND Password = '{}' ".format(newPass, username, oldPass.hexdigest()))
+                        modifyPass = ("UPDATE Player SET Password = '{}' WHERE Username = '{}' AND Password = '{}' ".format(newPass.hexdigest(), username, oldPass.hexdigest()))
                         passwordCursor.execute(modifyPass)
                         numRows = 0
                         for r in passwordCursor:

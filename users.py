@@ -55,7 +55,7 @@ def retrieveUserInfo(username):
         return userInfo
 
 
-def editUserProfile(form):
+def editUserProfile(form, username):
     try:
         conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
         password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
@@ -72,7 +72,6 @@ def editUserProfile(form):
         lname = form['lname']
         location = form['location']
         cursor = conn.cursor()
-        username = request.get_cookie('current_user')
         if(form['fname']):
             # Make sure name is valid
             if fname == '':

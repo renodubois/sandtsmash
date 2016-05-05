@@ -28,7 +28,7 @@
             <th>${{ event.entryfee }}</th>
             <th>Super Smash Bros. Melee</th>
             <th>{{ event.numAttendees }}/{{ event.maxPlayers }}</th>
-            {% if currentUser and !userRegistered %}<th><a class="btn btn-default" href="/events/joinEvent/{{ event.id }}" role="button">Register</a></th>{% elif currentUser and userRegistered %}<th><a class="btn btn-default" href="/events/leaveEvent/{{ event.id }}" role="button">Register</a></th>{% endif %}
+            {% if currentUser and not event.userRegistered %}<th><a class="btn btn-default" href="/events/joinEvent/{{ event.id }}" role="button">Register</a></th>{% elif currentUser and event.userRegistered %}<th><a class="btn btn-default" href="/events/leaveEvent/{{ event.id }}" role="button">Unregister</a></th>{% endif %}
         </tr>
         {% endfor %}
     </tbody>

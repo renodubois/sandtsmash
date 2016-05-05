@@ -118,6 +118,22 @@ def show_profile(username):
         userInfo['currentUser'] = request.get_cookie('current_user')
     return userInfo
 
+
+@post('/users/<username>/')
+@load_alerts
+def change_profile(username):
+    if request.get_cookie('current_user'):
+        errors = editUserProfile(request.forms, username)
+        if errors:
+            for err in errors:
+                save_danger(err)
+                redirect('users/<username>/')
+        else:
+            save_success('Profile changed successfully!')
+            redirect('users/<username>/')
+    else:
+        redirect('users/<username>/')
+
 # Forum page
 @get('/forum/')
 @requiresLogin

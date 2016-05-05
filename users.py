@@ -120,7 +120,7 @@ def editUserProfile(form, username):
                 checkCursor.close()
 
         if delMain:
-            deleteMain = ("DELETE FROM Main_characters WHERE Usernamne = '{}' AND Character_name = '{}'")
+            deleteMain = ("DELETE FROM Main_characters WHERE Username = '{}' AND Character_name = '{}'")
             cursor.execute(deleteMain)
 
         if newPass:
@@ -155,3 +155,24 @@ def editUserProfile(form, username):
         conn.close()
 
         return errors
+
+
+def getMains(username):
+    try:
+        conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0], password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2], database=MY_SQL_CONNECTION[3])
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Something is wrong w/ username and password')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Test database doesn\'t exist')
+        else:
+            print(err)
+    else:
+        cursor = conn.cursor()
+        cursor.execute("SELECT Character_name FROM Main_characters WHERE Username='{}'".format(username))
+        chars = []
+        for r in cursor:
+            chars.append(r[0])
+        cursor.close()
+        conn.close()
+        return chars

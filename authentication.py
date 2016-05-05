@@ -13,6 +13,7 @@ def requiresLogin(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         if not request.get_cookie('current_user'):
+            save_danger('You need to be logged in to do that!')
             redirect('/login/')
         else:
             return func(*args, **kwargs)

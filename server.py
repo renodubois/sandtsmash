@@ -9,7 +9,8 @@ from setup import meleeCharacters, admins
 from users import retrieveUserInfo, editUserProfile
 from signup import formValidation, formInsertion
 from authentication import requiresLogin, checkLogin
-from events import getCurrentEvents, registerForEvent, unregisterFromEvent
+from events import (getCurrentEvents, registerForEvent, unregisterFromEvent, eventValidation,
+eventInsertion
 from alerts import load_alerts, save_danger, save_success
 from beaker.middleware import SessionMiddleware
 
@@ -55,10 +56,7 @@ def validate_login():
     # Redirect them back to the home page:
     redirect('/')
 
-
-
 # Signup page
-
 @get('/signup/')
 @jinja2_view("templates/signup.html")
 @load_alerts
@@ -103,6 +101,28 @@ def view_events():
         eventData['currentEvents'] = getCurrentEvents('')
     return eventData
 
+# View the Create Event page
+@get('/events/createEvent/')
+@jinja2_view('templates/createEvent.html')
+@load_alerts
+@requiresLogin
+def view_createEvent():
+    return { 'currentUser' : request.get_cookie('current_user')}
+
+
+# Create an Event
+@post('/events/createEvent/')
+def create_event():
+    errors = eventValidation(request.forms)
+    if errors:
+        for err in errors:
+            save_danger(err)
+        redirect('/events/createEvent/')
+    else:
+        eventInsertion(request.forms)
+        save_success('Event created successfully!')
+        redirect('/events/')
+
 # View a detailed view of the event
 @get('/events/event-<id>')
 def view_event_details():
@@ -122,7 +142,6 @@ def join_event(eventId):
 
 
 # Unregister from an Event
-
 @get('/events/leaveEvent/<eventId>')
 @load_alerts
 def leave_event(eventId):

@@ -86,6 +86,7 @@ def eventValidation(form):
     location = form['location']
     is_streaming = form['is_streaming']
     provides_stream = form['provides_stream']
+    event_name = form['event_name']
     #Create list to hold all the errors
     error = []
     if event_id == '':
@@ -119,20 +120,20 @@ def eventInsertion(form):
         # Define a cursor, used to interact with our database.
         cursor = conn.cursor()
         #Import all of the form information into variables
-        event_id = form['event_id']
         event_date = form['event_date']
         entry_fee = form['entry_fee']
         max_participants = form['max_participants']
         location = form['location']
         is_streaming = form['is_streaming']
         provides_stream = form['provides_stream']
-        game = form['game']
+        event_name = form['event_name']
+        #game = form['game']
 
-        addEvent = ("INSERT INTO Event (Event_id, Event_date, Entry_fee, Max_participants, Location, Is_streaming, Provides_stream VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(event_id, event_date, entry_fee, max_participants, location, is_streaming, provides_stream))
-        addGame = ("INSERT INTO Hosts (Event_id, Game_name) VALUES ('{}', '{}')".format(event_id, game))
+        addEvent = ("INSERT INTO Event (Event_date, Entry_fee, Max_participants, Location, Is_streaming, Provides_stream, Name) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(event_date, entry_fee, max_participants, location, is_streaming, provides_stream, event_name))
+        #addGame = ("INSERT INTO Hosts (Event_id, Game_name) VALUES ('{}', '{}')".format(event_id, game))
         #Insert new Player into the Database
         cursor.execute(addEvent)
-        cursor.execute(addGame)
+        #cursor.execute(addGame)
         conn.commit()
         cursor.close()
         conn.close()

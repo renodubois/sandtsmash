@@ -71,37 +71,68 @@ def editUserProfile(form, username):
         fname = form['fname']
         lname = form['lname']
         location = form['location']
+        newMain = form['add-main']
+        oldPass = form['old-pass']
+        newPass = form['new-pass']
+        confirmPass = form['new-pass-confirm']
         cursor = conn.cursor()
-        if(form['fname']):
+        passwordCursor = conn.cursor()
+        if fname:
             # Make sure name is valid
-            if fname == '':
-                error.append('First name field must be filled out!')
             if len(fname) > 30:
                 error.append('Names must be less than 30 characters!')
             # Modify the database
-            modifyFname = ("UPDATE Player SET F_name = '{}' WHERE Username = '{}'".format(fname, username))
-            cursor.execute(modifyFname)
-            pass
+            else:
+                modifyFname = ("UPDATE Player SET F_name = '{}' WHERE Username = '{}'".format(fname, username))
+                cursor.execute(modifyFname)
+        else:
+            error.append('First name field must be filled out!')
 
-        if(form['lname']):
+        if lname:
             # Make sure name is valid
-            if lname == '':
-                error.append('First name field must be filled out!')
             if len(lname) > 30:
                 error.append('Names must be less than 30 characters!')
             # Modify the database
-            modifyLname = ("UPDATE Player SET L_name = '{}' WHERE Username = '{}'".format(lname, username))
-            cursor.execute(modifyFname)
-            pass
+            else:
+                modifyLname = ("UPDATE Player SET L_name = '{}' WHERE Username = '{}'".format(lname, username))
+                cursor.execute(modifyFname)
+        else:
+            error.append('First name field must be filled out!')
 
-        if(form['location']):
+        if location:
             # Make sure location is valid
-            if location == '':
-                error.append('Location field must be filled out!')
             modifyLocation = ("UPDATE Player SET Location = '{}' WHERE Username = '{}'".format(location, username))
             cursor.execute(modifyFname)
-            pass
+        else:
+            error.append('Location field must be filled out!')
             # Modify the database
+
+        if add-main:
+            addMain = ("INSERT INTO Main_characters (Character_name, Username) VALUES ('{}', '{}')".format(newMain, username)
+            cursor.execute(addMain)
+
+        if newPass:
+            if oldPass:
+                if confirmPass == newPass:
+                    if len(newPass) >= 6 or len(newPass) <= 36:
+                        oldPass = hashlib.sha256(oldPass.encode())
+                        modifyPass = ("UPDATE Player SET Password = '{}' WHERE Username = '{}' AND Password = '{}' ".format(newPass, username, oldPass))
+                        passwordCursor.execute(modifyPass)
+                        for r in passwordCursor:
+                            numRows += 1
+                            # If the result is anything but one result, it's invalid. Return with errors.
+                        if numRows != 1:
+                            errors.append('Incorrect password!')
+                    else:
+                        error.append('New password must be between 6 and 32 characters!')
+
+
+
+                else:
+                    error.append('Your confimation does not match the new password!')
+            else:
+                error.append('You must enter your old password!')
+
 
         conn.commit()
         cursor.close()

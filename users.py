@@ -76,6 +76,7 @@ def editUserProfile(form, username):
         oldPass = form['old-pass']
         newPass = form['new-pass']
         confirmPass = form['new-pass-confirm']
+        delMain = ''
         if 'del-main' in form.keys():
             delMain = form['del-main']
         cursor = conn.cursor()

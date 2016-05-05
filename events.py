@@ -144,7 +144,7 @@ def registerForEvent(eventId, username):
     try:
         conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
         password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
-        database=MY_SQL_CONNECTION[3])
+        database=MY_SQL_CONNECTION[3], buffered=True)
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
             print('Something is wrong w/ username and password')

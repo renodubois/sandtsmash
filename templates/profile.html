@@ -11,7 +11,7 @@
 </div>
 <div class="col-md-8 {% if not ownsProfile %}hidden{% endif %}">
     <h3> Edit your Profile </h3>
-    <form action="/edit-{{ username }}/">
+    <form action="/users/{{ username }}/" method="post">
         <div class="form-group">
             <div class="row">
                 <div class="col-lg-6">

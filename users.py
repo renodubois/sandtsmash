@@ -68,6 +68,7 @@ def editUserProfile(form, username):
         else:
             print(err)
     else:
+        error = []
         fname = form['fname']
         lname = form['lname']
         location = form['location']

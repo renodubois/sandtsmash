@@ -5,6 +5,7 @@ import sys
 from bottle import (app, Bottle, get, post, response, request, route, run, jinja2_view,
 redirect, static_file)
 
+from setup import meleeCharacters, admins
 from users import retrieveUserInfo, editUserProfile
 from signup import formValidation, formInsertion
 from authentication import requiresLogin, checkLogin
@@ -143,6 +144,7 @@ def show_profile(username):
         userInfo['ownsProfile'] = True
     if request.get_cookie('current_user'):
         userInfo['currentUser'] = request.get_cookie('current_user')
+    userInfo{charaters} = meleeCharacters
     return userInfo
 
 

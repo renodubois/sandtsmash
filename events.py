@@ -100,13 +100,9 @@ def eventInsertion(form):
         is_streaming = form['is_streaming']
         provides_stream = form['provides_stream']
         game = form['game']
-        
-        addEvent = ("INSERT INTO Event "
-                   "(Event_id, Event_date, Entry_fee, Max_participants, Location, Is_streaming, Provides_stream)"
-                   "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(event_id, event_date, entry_fee, max_participants, location, is_streaming, provides_stream))
-        addGame = ("INSERT INTO Hosts "
-                  "(Event_id, Game_name)"
-                  "VALUES ('{}', '{}')".format(event_id, game))
+
+        addEvent = ("INSERT INTO Event (Event_id, Event_date, Entry_fee, Max_participants, Location, Is_streaming, Provides_stream VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(event_id, event_date, entry_fee, max_participants, location, is_streaming, provides_stream))
+        addGame = ("INSERT INTO Hosts (Event_id, Game_name) VALUES ('{}', '{}')".format(event_id, game))
         #Insert new Player into the Database
         cursor.execute(addEvent)
         cursor.execute(addGame)

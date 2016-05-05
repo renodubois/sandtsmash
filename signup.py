@@ -66,9 +66,7 @@ def formInsertion(form):
         lname = form['lname']
         location = form['location']
 
-        addPlayer = ("INSERT INTO Player "
-                    "(Username, Password, F_name, L_name, Location) "
-                    "VALUES ('{}', '{}', '{}', '{}', '{}')".format(username, password.hexdigest(), fname, lname, location))
+        addPlayer = ("INSERT INTO Player (Username, Password, F_name, L_name, Location) VALUES ('{}', '{}', '{}', '{}', '{}')".format(username, password.hexdigest(), fname, lname, location))
         #Insert new Player into the Database
         cursor.execute(addPlayer)
         conn.commit()

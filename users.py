@@ -80,9 +80,7 @@ def editUserProfile(form):
             if len(fname) > 30:
                 error.append('Names must be less than 30 characters!')
             # Modify the database
-            modifyFname = ("UPDATE Player "
-                          "SET F_name = '{}'".format(fname)
-                          "WHERE Username = '{}'".format(username))
+            modifyFname = ("UPDATE Player SET F_name = '{}' WHERE Username = '{}'".format(fname, username))
             cursor.execute(modifyFname)
             pass
 
@@ -93,9 +91,7 @@ def editUserProfile(form):
             if len(lname) > 30:
                 error.append('Names must be less than 30 characters!')
             # Modify the database
-            modifyLname = ("UPDATE Player "
-                          "SET L_name = '{}'".format(lname)
-                          "WHERE Username = '{}'".format(username))
+            modifyLname = ("UPDATE Player SET L_name = '{}' WHERE Username = '{}'".format(lname, username))
             cursor.execute(modifyFname)
             pass
 
@@ -103,9 +99,7 @@ def editUserProfile(form):
             # Make sure location is valid
             if location == '':
                 error.append('Location field must be filled out!')
-            modifyLocation = ("UPDATE Player "
-                             "SET Location = '{}'".format(location)
-                             "WHERE Username = '{}'".format(username))
+            modifyLocation = ("UPDATE Player SET Location = '{}' WHERE Username = '{}'".format(location, username))
             cursor.execute(modifyFname)
             pass
             # Modify the database

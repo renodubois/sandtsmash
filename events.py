@@ -64,6 +64,7 @@ def eventValidation(form):
     if event_id = '':
         pass
         error.append('')
+    if type(event_date) is datetime
     if event_date == '':
         error.append('Event date field must be filled out!')
     if event_date <= NOW():
@@ -98,10 +99,17 @@ def eventInsertion(form):
         location = form['location']
         is_streaming = form['is_streaming']
         provides_stream = form['provides_stream']
-
-        addEvent = ("INSERT INTO Event (Event_id, Event_date, Entry_fee, Max_participants, Location, Is_streaming, Provides_stream) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(event_id, event_date, entry_fee, max_participants, location, is_streaming, provides_stream))
+        game = form['game']
+        
+        addEvent = ("INSERT INTO Event "
+                   "(Event_id, Event_date, Entry_fee, Max_participants, Location, Is_streaming, Provides_stream)"
+                   "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(event_id, event_date, entry_fee, max_participants, location, is_streaming, provides_stream))
+        addGame = ("INSERT INTO Hosts "
+                  "(Event_id, Game_name)"
+                  "VALUES ('{}', '{}')".format(event_id, game))
         #Insert new Player into the Database
         cursor.execute(addEvent)
+        cursor.execute(addGame)
         conn.commit()
         cursor.close()
         conn.close()

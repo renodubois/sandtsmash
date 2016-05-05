@@ -72,7 +72,7 @@ def editUserProfile(form):
         lname = form['lname']
         location = form['location']
         cursor = conn.cursor()
-
+        username = request.get_cookie('current_user')
         if(form['fname']):
             # Make sure name is valid
             if fname == '':
@@ -80,7 +80,9 @@ def editUserProfile(form):
             if len(fname) > 30:
                 error.append('Names must be less than 30 characters!')
             # Modify the database
-            modifyFname = ("INSERT INTO Player (F_name) VALUES ('{}')".format(fname))
+            modifyFname = ("UPDATE Player "
+                          "SET F_name = '{}'".format(fname)
+                          "WHERE Username = '{}'".format(username))
             cursor.execute(modifyFname)
             pass
 
@@ -91,7 +93,9 @@ def editUserProfile(form):
             if len(lname) > 30:
                 error.append('Names must be less than 30 characters!')
             # Modify the database
-            modifyLname = ("INSERT INTO Player (L_name) VALUES ('{}')".format(lname))
+            modifyLname = ("UPDATE Player "
+                          "SET L_name = '{}'".format(lname)
+                          "WHERE Username = '{}'".format(username))
             cursor.execute(modifyFname)
             pass
 
@@ -99,7 +103,9 @@ def editUserProfile(form):
             # Make sure location is valid
             if location == '':
                 error.append('Location field must be filled out!')
-            modifyLocation = ("INSERT INTO Player (Location) VALUES ('{}')".format(location))
+            modifyLocation = ("UPDATE Player "
+                             "SET Location = '{}'".format(location)
+                             "WHERE Username = '{}'".format(username))
             cursor.execute(modifyFname)
             pass
             # Modify the database

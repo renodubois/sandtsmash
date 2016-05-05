@@ -81,7 +81,6 @@ def editUserProfile(form, username):
         if 'del-main' in form.keys():
             delMain = form['del-main']
         cursor = conn.cursor()
-        passwordCursor = conn.cursor()
         if fname:
             # Make sure name is valid
             if len(fname) > 30:
@@ -128,6 +127,7 @@ def editUserProfile(form, username):
             if oldPass:
                 if confirmPass == newPass:
                     if len(newPass) >= 6 or len(newPass) <= 36:
+                        passwordCursor = conn.cursor()
                         oldPass = hashlib.sha256(oldPass.encode())
                         newPass = hashlib.sha256(newPass.encode())
                         modifyPass = ("UPDATE Player SET Password = '{}' WHERE Username = '{}' AND Password = '{}' ".format(newPass.hexdigest(), username, oldPass.hexdigest()))
@@ -138,6 +138,7 @@ def editUserProfile(form, username):
                             # If the result is anything but one result, it's invalid. Return with errors.
                         if numRows != 1:
                             errors.append('Incorrect password!')
+                        passwordCursor.close()
                     else:
                         errors.append('New password must be between 6 and 32 characters!')
 

@@ -1,5 +1,6 @@
 import mysql.connector
 from setup import MY_SQL_CONNECTION
+import hashlib
 
 def updateCurUsers():
     try:

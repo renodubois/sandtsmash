@@ -76,6 +76,7 @@ def editUserProfile(form, username):
         oldPass = form['old-pass']
         newPass = form['new-pass']
         confirmPass = form['new-pass-confirm']
+        delMain = form['del-main']
         cursor = conn.cursor()
         passwordCursor = conn.cursor()
         if fname:
@@ -108,9 +109,11 @@ def editUserProfile(form, username):
             error.append('Location field must be filled out!')
             # Modify the database
 
-        if add-main:
+        if newMain:
             addMain = ("INSERT INTO Main_characters (Character_name, Username) VALUES ('{}', '{}')".format(newMain, username))
             cursor.execute(addMain)
+
+        if
 
         if newPass:
             if oldPass:

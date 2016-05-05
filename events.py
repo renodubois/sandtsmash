@@ -60,7 +60,7 @@ def findCompetitors(eventId):
         elif err.errno == errorcode.ER_BAD_DB_ERROR:
             print('Test database doesn\'t exist')
         else:
-            print(err) 
+            print(err)
     else:
         cursor = conn.cursor()
         attendees = []
@@ -83,10 +83,10 @@ def eventValidation(form):
     provides_stream = form['provides_stream']
     #Create list to hold all the errors
     error = []
-    if event_id = '':
+    if event_id == '':
         pass
         error.append('')
-    if type(event_date) is datetime
+    #if type(event_date) is datetime
     if event_date == '':
         error.append('Event date field must be filled out!')
     if event_date <= NOW():

@@ -7,7 +7,7 @@
     <h4>Name: {{ fname }} {{ lname }}</h4>
     <h4>Location: {{ location }}</h4>
     <h4>Ranking: {{ ranking | default("Not yet ranked!") }}
-    <h4>Character Mains: {% for main in charMains %} <li>{{ main }}</li> {% endfor %}</h4> 
+    <h4>Character Mains: {% for main in charMains %} <li>{{ main }}</li> {% endfor %}</h4>
 </div>
 <div class="col-md-8 {% if not ownsProfile %}hidden{% endif %}">
     <h3> Edit your Profile </h3>
@@ -41,12 +41,13 @@
                 <div class="{% if charMains %} col-md-6 {% else %} hidden {% endif %}">
                     <label for="del-main">Delete a main</label>
                     <select class="form-control" name="del-main">
+                        <option value="Nothing">Nothing</option>
                         {% for main in charMains %}
                         <option value="{{ main }}">{{ main }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                    
+
 
         </div>
         <h5>Change your Password:</h5>

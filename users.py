@@ -120,8 +120,9 @@ def editUserProfile(form, username):
                 checkCursor.close()
 
         if delMain:
-            deleteMain = ("DELETE FROM Main_characters WHERE Username = '{}' AND Character_name = '{}'")
-            cursor.execute(deleteMain)
+            if delMain != "Nothing":
+                deleteMain = ("DELETE FROM Main_characters WHERE Username = '{}' AND Character_name = '{}'")
+                cursor.execute(deleteMain)
 
         if newPass:
             if oldPass:

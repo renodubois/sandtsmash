@@ -97,6 +97,8 @@ def view_events():
     if request.get_cookie('current_user'):
         eventData['currentEvents'] = getCurrentEvents(request.get_cookie('current_user'))
         eventData['currentUser'] = request.get_cookie('current_user')
+        if request.get_cookie('current_user') in admins:
+            eventData['isAdmin'] = True
     else:
         eventData['currentEvents'] = getCurrentEvents('')
     return eventData

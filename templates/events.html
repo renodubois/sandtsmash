@@ -17,6 +17,7 @@
             <th>Game</th>
             <th>Number of Attendees<th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -31,6 +32,7 @@
             <th>Super Smash Bros. Melee</th>
             <th>{{ event.numAttendees }}/{{ event.maxPlayers }}</th>
             {% if currentUser and not event.userRegistered %}<th><a class="btn btn-default" href="/events/joinEvent/{{ event.id }}" role="button">Register</a></th>{% elif currentUser and event.userRegistered %}<th><a class="btn btn-default" href="/events/leaveEvent/{{ event.id }}" role="button">Unregister</a></th>{% endif %}
+            {% if currentUser and isAdmin %}<th><a class="btn btn-danger" href="/evens/deleteEvent/{{ event.id }}" role="button">x</a></th>{% endif %}
         </tr>
         {% endfor %}
     </tbody>

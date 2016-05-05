@@ -79,14 +79,12 @@ def getFinishedEvents():
 
 def eventValidation(form):
     #Import all of the form information into variables
-    dateFormat = '%Y-%m-%d %H:%M:%S %p'
+    dateFormat = '%Y-%m-%d %H:%M:%S'
 #event_id = form['event_id']
     event_date = datetime.datetime.strptime(form['event_date'], dateFormat)
     entry_fee = form['entry_fee']
     max_participants = form['max_participants']
     location = form['location']
-    is_streaming = form['is_streaming']
-    provides_stream = form['provides_stream']
     event_name = form['event_name']
     #Create list to hold all the errors
     error = []
@@ -125,8 +123,14 @@ def eventInsertion(form):
         entry_fee = form['entry_fee']
         max_participants = form['max_participants']
         location = form['location']
-        is_streaming = form['is_streaming']
-        provides_stream = form['provides_stream']
+        if form['is_streaming']:
+            is_streaming = 1
+        else:
+            is_streaming = 0
+        if form['provides_stream']
+            provides_stream = 1
+        else:
+            is_streaming = 0
         event_name = form['event_name']
         #game = form['game']
 

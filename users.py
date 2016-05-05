@@ -69,7 +69,7 @@ def editUserProfile(form, username):
         else:
             print(err)
     else:
-        error = []
+        errors = []
         fname = form['fname']
         lname = form['lname']
         location = form['location']
@@ -85,7 +85,7 @@ def editUserProfile(form, username):
         if fname:
             # Make sure name is valid
             if len(fname) > 30:
-                error.append('Names must be less than 30 characters!')
+                errors.append('Names must be less than 30 characters!')
             # Modify the database
             else:
                 modifyFname = ("UPDATE Player SET F_name = '{}' WHERE Username = '{}'".format(fname, username))
@@ -94,7 +94,7 @@ def editUserProfile(form, username):
         if lname:
             # Make sure name is valid
             if len(lname) > 30:
-                error.append('Names must be less than 30 characters!')
+                errors.append('Names must be less than 30 characters!')
             # Modify the database
             else:
                 modifyLname = ("UPDATE Player SET L_name = '{}' WHERE Username = '{}'".format(lname, username))
@@ -138,18 +138,18 @@ def editUserProfile(form, username):
                         if numRows != 1:
                             errors.append('Incorrect password!')
                     else:
-                        error.append('New password must be between 6 and 32 characters!')
+                        errors.append('New password must be between 6 and 32 characters!')
 
 
 
                 else:
-                    error.append('Your confimation does not match the new password!')
+                    errors.append('Your confimation does not match the new password!')
             else:
-                error.append('You must enter your old password!')
+                errors.append('You must enter your old password!')
 
 
         conn.commit()
         cursor.close()
         conn.close()
 
-        return error
+        return errors

@@ -111,6 +111,7 @@ def editUserProfile(form, username):
                 checkCursor = conn.cursor()
                 checkMain = ("SELECT * FROM Main_characters WHERE Character_name = '{}' AND Username = '{}'".format(newMain, username))
                 checkCursor.execute(checkMain)
+                numrows = 0
                 for r in checkCursor:
                     numRows += 1
                     # If the result is anything but one result, it's invalid. Return with errors.

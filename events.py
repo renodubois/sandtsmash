@@ -259,3 +259,7 @@ def unregisterFromEvent(eventId, username):
         conn.commit()
         cursor.close()
         conn.close()
+
+
+def deleteEvent(eventId):
+    pass

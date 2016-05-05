@@ -8,7 +8,7 @@ redirect, static_file)
 from users import retrieveUserInfo, editUserProfile
 from signup import formValidation, formInsertion
 from authentication import requiresLogin, checkLogin
-from events import getCurrentEvents, registerForEvent
+from events import getCurrentEvents, registerForEvent, unregisterFromEvent
 from alerts import load_alerts, save_danger, save_success
 from beaker.middleware import SessionMiddleware
 

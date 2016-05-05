@@ -5,5 +5,6 @@ with open("MeleeCharacters.txt") as meleeFile:
     meleeCharacters = meleeFile.read()
     meleeCharacters = meleeCharacters.splitlines()
 
-for character in meleeCharacters:
-    print(character)
+with open("MeleeCharacters.txt") as adminFile:
+    Admins = Admins.read()
+    Admins = Admins.splitlines()

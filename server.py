@@ -8,7 +8,7 @@ redirect, static_file)
 from users import retrieveUserInfo, editUserProfile
 from signup import formValidation, formInsertion
 from authentication import requiresLogin, checkLogin
-from events import getCurrentEvents
+from events import getCurrentEvents, registerForEvent
 from alerts import load_alerts, save_danger, save_success
 from beaker.middleware import SessionMiddleware
 
@@ -103,6 +103,18 @@ def view_events():
 @get('/events/event-<id>')
 def view_event_details():
     pass
+
+# Register for an Event
+@get('/events/joinEvent/<eventId>')
+def join_event(eventId):
+    if request.get_cookie('current_user'):
+        registerForEvent(eventId, request.get_cookie('current_user'))
+        # TODO: Make save_success output the event's name.
+        save_success('Sucessfully registered for event!')
+        redirect('/events/')
+    else:
+        save_danger('You have to be signed in to do that!')
+        redirect('/events/')
 
 
 # Profile page

@@ -135,5 +135,38 @@ def eventInsertion(form):
 def editEvent():
     pass
 
+
 def deleteEvent():
     pass
+
+
+def registerForEvent(eventId, username):
+    try:
+        conn = mysql.connector.connect(user=MY_SQL_CONNECTION[0],
+        password=MY_SQL_CONNECTION[1], host=MY_SQL_CONNECTION[2],
+        database=MY_SQL_CONNECTION[3])
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Something is wrong w/ username and password')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Test database doesn\'t exist')
+        else:
+            print(err)
+    else:
+        # Check to make sure that the eventId and username are in the database.
+        usernameCursor = conn.cursor()
+        eventCursor = conn.cursor()
+        cursor = conn.cursor()
+
+        usernameCursor.execute("SELECT * FROM Player WHERE Username='{}'".format(username))
+        eventCursor.execute("SELECT * FROM Event WHERE Event_id='{}'".format(eventId))
+        usernameResults = []
+        eventResults = []
+        for r in usernameCursor:
+            usernameResults.append(r)
+        for r in eventCursor:
+            eventResults.append(r)
+        # Found them!
+        if len(usernameResults) == 1 and len(eventResults) == 1:
+            # Add the username and eventId to the Competes_in table.
+            cursor.execute("INSERT INTO Competes_in (Event_id, Username) VALUES ('{}', '{}')".format(eventId, username))

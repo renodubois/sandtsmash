@@ -127,12 +127,12 @@ def change_profile(username):
         if errors:
             for err in errors:
                 save_danger(err)
-                redirect('users/<username>/')
+                redirect('/users/{}/'.format(username))
         else:
             save_success('Profile changed successfully!')
-            redirect('users/<username>/')
+            redirect('/users/{}/'.format(username))
     else:
-        redirect('users/<username>/')
+        redirect('/users/{}/'.format(username))
 
 # Forum page
 @get('/forum/')

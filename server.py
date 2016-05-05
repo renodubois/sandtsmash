@@ -6,7 +6,7 @@ from bottle import (app, Bottle, get, post, response, request, route, run, jinja
 redirect, static_file)
 
 from setup import meleeCharacters, admins
-from users import retrieveUserInfo, editUserProfile
+from users import retrieveUserInfo, editUserProfile, getMains
 from signup import formValidation, formInsertion
 from authentication import requiresLogin, checkLogin
 from events import (getCurrentEvents, registerForEvent, unregisterFromEvent, eventValidation,
@@ -24,7 +24,7 @@ def static(path):
 @jinja2_view("templates/index.html")
 @load_alerts
 def index():
-    print(request.get_cookie('current_user'))
+#print(request.get_cookie('current_user'))
     if request.get_cookie('current_user'):
         return {'currentUser':request.get_cookie('current_user')}
     return {}
@@ -167,6 +167,7 @@ def show_profile(username):
     if request.get_cookie('current_user'):
         userInfo['currentUser'] = request.get_cookie('current_user')
     userInfo['characters'] = meleeCharacters
+    userInfo['charMains'] = getMains(username)
     return userInfo
 
 

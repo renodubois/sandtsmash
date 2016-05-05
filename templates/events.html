@@ -1,8 +1,10 @@
 {% extends "templates/base.html" %}
 
 {% block content %}
-
-<h3>Current Events</h3>
+<div class="row">
+    <div class="col-md-10"><h3>Current Events</h3></div>
+    <div class="col-md-2"><a class="btn btn-default {% if not currentUser %}hidden{% endif %}" href="/events/createEvent/" role="button">Create an Event</a></div>
+</div>
 <table class="table table-striped">
     <thead>
         <tr>
